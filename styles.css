@@ -396,6 +396,28 @@
 }
 
 
+.eec-image-wrapper {
+  padding: 0 10rem; /* Adjust left and right gap here */
+}
+
+.eec-image-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #FEBE06;
+  margin-bottom: 1.5rem;
+  padding-left: 320px;
+  /* font-family: 'Segoe UI', sans-serif; */
+}
+
+.eec-image-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 1rem;
+}
+
+
+
 /* Main Section Styling */
 .eec-features-section {
   background-color: #f0f4f8;
@@ -488,7 +510,7 @@
 }
 
 .eec-stages-container {
-  max-width: 1000px;
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
 }
@@ -506,18 +528,20 @@
   margin-bottom: 2rem;
 }
 
-.eec-stages-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+.eec-stages-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .eec-stage-card {
   background-color: #ffffff;
   padding: 1.5rem;
+  width: 100%;
   border-radius: 1rem;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .eec-stage-card:hover {
@@ -537,6 +561,22 @@
   margin: 0;
 }
 
+.eec-arrow {
+  font-size: 2rem;
+  margin: -0.5rem 0 1rem;
+  color: #9ca3af;
+  animation: bounce 1.2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
 .eec-stages-note {
   margin-top: 2rem;
   font-size: 1rem;
@@ -547,6 +587,7 @@
   border-radius: 8px;
   font-weight: 500;
 }
+
 
 
 .eec-usp-section {
@@ -654,7 +695,7 @@
 }
 
 
-.eec-testimonials-section {
+/* .eec-testimonials-section {
   padding: 4rem 1rem;
   background: #f9fafb;
   font-family: 'Segoe UI', sans-serif;
@@ -706,7 +747,70 @@
   font-weight: 600;
   color: #111827;
   font-size: 1rem;
+} */
+
+
+.eec-carousel-section {
+  background-color: #fff;
+  padding: 4rem 1rem;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
 }
+
+.carousel-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #FEBE06;
+  margin-bottom: 2rem;
+}
+
+.carousel-container {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-images {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.carousel-img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  z-index: 2;
+}
+
+.carousel-btn.left {
+  left: 10px;
+}
+
+.carousel-btn.right {
+  right: 10px;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 
 
 .eec-faq-section {
@@ -913,74 +1017,7 @@
       flex: 1 1 100%;
     }
   }
-  .carousel-container {
-    position: relative;
-    overflow: hidden;
-    max-width: 100%;
-    height: 300px;
-    margin: 40px auto;
-    padding: 0 20px;
-  }
   
-  .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    scroll-behavior: smooth;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-  }
-  
-  .carousel-track::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .carousel-item {
-    flex: 0 0 auto;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 10px;
-    scroll-snap-align: start;
-  }
-  
-  .carousel-item img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    display: block;
-  }
-  
-  .carousel-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: #fff;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 5px 10px;
-    z-index: 10;
-  }
-  
-  .carousel-prev {
-    left: 10px;
-  }
-  
-  .carousel-next {
-    right: 10px;
-  }
-  
-  @media (min-width: 600px) {
-    .carousel-item {
-      max-width: 45%;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .carousel-item {
-      max-width: 30%;
-    }
-  }
   .footer-wrapper {
     background-color: #0975a3;
     padding-top: 20px;
