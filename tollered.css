@@ -12,7 +12,7 @@
   }
   
   .hero-section {
-    background-image: url("img/toll2.jpg");
+    background-image: url("img/Banner1.jpg");
     background-size: cover;
     background-position: center;
     color: white;
@@ -24,7 +24,7 @@
   }
   
   .hero-content {
-    background-color: rgba(0, 0, 0, 0.5);
+    /* background-color: rgba(0, 0, 0, 0.5); */
     padding: 40px;
     border-radius: 10px;
   }
