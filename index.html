@@ -156,7 +156,16 @@
           <input type="text" name="childName" placeholder="Enter Name of your Child" required />
           <input type="tel" name="mobileNumber" placeholder="Enter your Mobile Number" required />
           <input type="email" name="email" placeholder="Email Address" />
-          <!-- <input type="text" name="state" placeholder="Enter State" /> -->
+      
+          <!-- Class Dropdown -->
+          <select name="class" required>
+            <option value="">Select Class</option>
+            <option value="Class 1">Class 1</option>
+            <option value="Class 2">Class 2</option>
+            <option value="Class 3">Class 3</option>
+          </select>
+      
+          <!-- State Dropdown -->
           <select name="state" required>
             <option value="">Select State</option>
             <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -189,13 +198,16 @@
             <option value="Uttarakhand">Uttarakhand</option>
             <option value="West Bengal">West Bengal</option>
           </select>
-          
+      
+          <!-- Password Field -->
+          <input type="password" name="password" placeholder="Enter Password" required />
       
           <button type="submit">Submit</button>
         </form>
       </div>
       
-      <script>
+      
+      <!-- <script>
         document.getElementById("bookingForm").addEventListener("submit", async function (e) {
           e.preventDefault();
       
@@ -226,6 +238,38 @@
           } catch (err) {
             alert("Failed to connect to server.");
             console.error(err);
+          }
+        });
+      </script> -->
+
+      <script>
+        const form = document.getElementById('bookingForm');
+    
+        form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+    
+          const formData = new FormData(form);
+          const data = Object.fromEntries(formData.entries());
+    
+          try {
+            const response = await fetch('http://localhost:3000/api/book', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(data)
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+              alert('Form submitted successfully! Check your email.');
+            } else {
+              alert(result.message || 'Submission failed.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred.');
           }
         });
       </script>
@@ -460,7 +504,25 @@
   </div>
 </section>
 
-<section class="eec-carousel-section">
+
+<section class="eec-image-row-section">
+  <h2 class="eec-image-title1">See EEC in Action</h2>
+  <div class="eec-image-row">
+    <div class="eec-image-card">
+      <img src="img/Benefits for Students.jpg" alt="Benefits for Students" />
+    </div>
+    <div class="eec-image-card">
+      <img src="img/Benefits for Parents.jpg" alt="Benefits for Parents" />
+    </div>
+    <div class="eec-image-card">
+      <img src="img/Why Choose EEC.jpg" alt="Why Choose EEC" />
+    </div>
+  </div>
+</section>
+
+
+
+<!-- <section class="eec-carousel-section">
   <h2 class="carousel-title">See EEC in Action</h2>
   <div class="carousel-container">
     <div class="carousel-images" id="carouselImages">
@@ -470,7 +532,7 @@
     <button class="carousel-btn left" onclick="prevSlide()">&#10094;</button>
     <button class="carousel-btn right" onclick="nextSlide()">&#10095;</button>
   </div>
-</section>
+</section> -->
 
 
 

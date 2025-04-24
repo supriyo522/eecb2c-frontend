@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Students</title>
+    <link rel="stylesheet" href="tryout.css" />
+  </head>
+  <body>
+    <!-- Top Navigation Menu -->
+    <div class="main-menu">
+      <div class="menu-items">
+        <div class="comon-btn" data-section="home">🏠 Home</div>
+        <div class="comon-btn" data-section="all">📚 All</div>
+        <div class="comon-btn" data-section="books">📖 Digital Books</div>
+        <div class="comon-btn" data-section="courses">📑 Courses</div>
+        <div class="comon-btn" data-section="tryouts">📺 Try-Outs</div>
+        <div class="comon-btn" data-section="assignments">📘 Assignment</div>
+        <div class="comon-btn" data-section="games">🎮 Games</div>
+      </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-content-wrapper">
+      <!-- Filter Sidebar -->
+      <div class="filter-card">
+        <p>Filter Matching Your Profile Details</p>
+
+        <label for="board">Board/Organization</label>
+        <select id="board">
+          <option value="ncert">NCERT</option>
+          <option value="wb-board">WB Board</option>
+          <option value="international-board">International Board</option>
+        </select>
+
+        <label for="batch">Select Batch</label>
+        <select id="batch">
+          <option value="nursery">Nursery</option>
+          <option value="primary">Primary</option>
+          <option value="secondary">Secondary</option>
+          <option value="higher">Higher</option>
+        </select>
+
+        <label for="class">Select Class</label>
+        <select id="class">
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+        </select>
+
+        <label for="level">Select Level</label>
+        <select id="level">
+          <option value="basic">Basic Level</option>
+          <option value="intermediate">Intermediate Level</option>
+          <option value="advanced">Advanced Level</option>
+        </select>
+
+        <label for="subject">Select Subject</label>
+        <select id="subject">
+          <option value="hindi">Hindi</option>
+          <option value="english">English</option>
+          <option value="science">Science</option>
+          <option value="social">Social Science</option>
+          <option value="math">Mathematics</option>
+        </select>
+
+        <label for="content">Content Type</label>
+        <select id="content">
+          <option value="syllabus">Syllabus</option>
+          <option value="course">Course</option>
+          <option value="internship">Internship</option>
+        </select>
+      </div>
+
+      <!-- Content Sections -->
+      <div class="content-section-container">
+        <div class="content-section active" id="home">
+          <h2>Welcome to the Home Page</h2>
+          <p>This is the home section. Customize this as needed!</p>
+        </div>
+
+        <div class="content-section" id="all">
+          <h2>Showing Result For All Content</h2>
+          <!-- <div class="video-grid">
+            <div class="video-card">
+              <iframe
+                src="https://www.youtube.com/embed/QcibLMpBDWg"
+                allowfullscreen
+              ></iframe>
+              <p>Video 1 Description</p>
+            </div>
+            <div class="video-card">
+              <iframe
+                src="https://www.youtube.com/embed/i-IHPqVxzIY"
+                allowfullscreen
+              ></iframe>
+              <p>Video 2 Description</p>
+            </div>
+          </div> -->
+        </div>
+
+        <div class="content-section" id="books">
+          <h2>Digital Books</h2>
+          <p>Here you can list available digital books.</p>
+        </div>
+
+        <div class="content-section" id="courses">
+          <h2>Courses Section</h2>
+          <p>List your online/offline courses here.</p>
+        </div>
+
+        <div class="content-section" id="tryouts">
+          <h2>Try-Outs</h2>
+          <p>Display experimental learning content.</p>
+        </div>
+
+        <div class="content-section" id="assignments">
+          <h2>Assignments</h2>
+          <p>All assignments will appear here.</p>
+        </div>
+
+        <div class="content-section" id="games">
+          <h2>Educational Games</h2>
+          <p>Engaging learning games content goes here.</p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const buttons = document.querySelectorAll(".comon-btn");
+      const sections = document.querySelectorAll(".content-section");
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = btn.getAttribute("data-section");
+          sections.forEach((section) => {
+            section.classList.remove("active");
+          });
+          document.getElementById(target).classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>
