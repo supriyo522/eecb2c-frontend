@@ -5,6 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>All Students</title>
     <link rel="stylesheet" href="tryout.css" />
+    
+    <style>
+      .class-buttons, .level-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .class-btn, .level-btn {
+        padding: 10px 20px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+      }
+      .class-btn:hover, .level-btn:hover {
+        background: #45a049;
+      }
+      .content-section {
+        display: none;
+      }
+      .content-section.active {
+        display: block;
+      }
+      .options {
+        margin-top: 5px;
+        margin-bottom: 15px;
+      }
+      .options label {
+        display: block;
+        margin-bottom: 4px;
+      }
+      #submitBtn {
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+      #scoreDisplay {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
     <!-- Top Navigation Menu -->
@@ -22,56 +69,6 @@
 
     <!-- Main Content Wrapper -->
     <div class="main-content-wrapper">
-      <!-- Filter Sidebar -->
-      <div class="filter-card">
-        <p>Filter Matching Your Profile Details</p>
-
-        <label for="board">Board/Organization</label>
-        <select id="board">
-          <option value="ncert">NCERT</option>
-          <option value="wb-board">WB Board</option>
-          <option value="international-board">International Board</option>
-        </select>
-
-        <label for="batch">Select Batch</label>
-        <select id="batch">
-          <option value="nursery">Nursery</option>
-          <option value="primary">Primary</option>
-          <option value="secondary">Secondary</option>
-          <option value="higher">Higher</option>
-        </select>
-
-        <label for="class">Select Class</label>
-        <select id="class">
-          <option value="1">Class 1</option>
-          <option value="2">Class 2</option>
-          <option value="3">Class 3</option>
-        </select>
-
-        <label for="level">Select Level</label>
-        <select id="level">
-          <option value="basic">Basic Level</option>
-          <option value="intermediate">Intermediate Level</option>
-          <option value="advanced">Advanced Level</option>
-        </select>
-
-        <label for="subject">Select Subject</label>
-        <select id="subject">
-          <option value="hindi">Hindi</option>
-          <option value="english">English</option>
-          <option value="science">Science</option>
-          <option value="social">Social Science</option>
-          <option value="math">Mathematics</option>
-        </select>
-
-        <label for="content">Content Type</label>
-        <select id="content">
-          <option value="syllabus">Syllabus</option>
-          <option value="course">Course</option>
-          <option value="internship">Internship</option>
-        </select>
-      </div>
-
       <!-- Content Sections -->
       <div class="content-section-container">
         <div class="content-section active" id="home">
@@ -81,22 +78,6 @@
 
         <div class="content-section" id="all">
           <h2>Showing Result For All Content</h2>
-          <!-- <div class="video-grid">
-            <div class="video-card">
-              <iframe
-                src="https://www.youtube.com/embed/QcibLMpBDWg"
-                allowfullscreen
-              ></iframe>
-              <p>Video 1 Description</p>
-            </div>
-            <div class="video-card">
-              <iframe
-                src="https://www.youtube.com/embed/i-IHPqVxzIY"
-                allowfullscreen
-              ></iframe>
-              <p>Video 2 Description</p>
-            </div>
-          </div> -->
         </div>
 
         <div class="content-section" id="books">
@@ -109,10 +90,38 @@
           <p>List your online/offline courses here.</p>
         </div>
 
-        <div class="content-section" id="tryouts">
+        <!-- <div class="content-section" id="tryouts">
           <h2>Try-Outs</h2>
           <p>Display experimental learning content.</p>
+        </div> -->
+
+        <div class="content-section" id="tryouts">
+          <h2>📺 Try-Outs</h2>
+
+          <!-- Class Selection -->
+          <div class="class-buttons">
+            <button class="class-btn" data-class="1">Class 1</button>
+            <button class="class-btn" data-class="2">Class 2</button>
+            <button class="class-btn" data-class="3">Class 3</button>
+            <!-- ... up to Class 10 -->
+          </div>
+        
+          <!-- Level Selection -->
+          <div class="level-buttons" style="display: none;">
+            <button class="level-btn" data-level="basic">Basic</button>
+            <button class="level-btn" data-level="intermediate">Intermediate</button>
+            <button class="level-btn" data-level="hard">Hard</button>
+          </div>
+        
+          <!-- Questions Display -->
+          <div class="content-section" id="questions-section">
+            <ol id="questionList"></ol>
+            <button id="submitBtn">Submit Answers</button>
+            <div id="scoreDisplay"></div>
+          </div>
+        
         </div>
+        
 
         <div class="content-section" id="assignments">
           <h2>Assignments</h2>
@@ -140,5 +149,129 @@
         });
       });
     </script>
+
+<script>
+  const classButtons = document.querySelectorAll(".class-btn");
+  const levelButtons = document.querySelectorAll(".level-btn");
+  const levelButtonsWrapper = document.querySelector(".level-buttons");
+  const questionsSection = document.getElementById("questions-section");
+  const questionList = document.getElementById("questionList");
+  const submitBtn = document.getElementById("submitBtn");
+  const scoreDisplay = document.getElementById("scoreDisplay");
+
+  let selectedClass = null;
+  let selectedLevel = null;
+  let currentAnswers = [];
+
+  const allQuestions = {
+    "1_basic": [
+      {
+        question: "Ravi has 2 red balloons and 3 blue balloons. How many balloons does he have in total?",
+        options: ["3", "2", "4", "5"],
+        answer: "3"
+      },
+      {
+        question: "12 candies are divided among 3 friends. How many candies does each friend get?",
+        options: ["4", "3", "5", "6"],
+        answer: "4"
+      },
+      {
+        question: "There are 10 pencils. They are put into 5 boxes equally. How many pencils in each box?",
+        options: ["2", "3", "4", "5"],
+        answer: "2"
+      },
+      {
+        question: "8 chocolates are shared equally among 4 kids. How many chocolates does each kid get?",
+        options: ["2", "3", "1", "4"],
+        answer: "2"
+      },
+      {
+        question: "15 cookies are divided equally into 3 plates. How many cookies on each plate?",
+        options: ["5", "6", "4", "3"],
+        answer: "5"
+      },
+      {
+        question: "9 balloons are shared among 3 children. How many balloons does each child get?",
+        options: ["3", "4", "2", "5"],
+        answer: "3"
+      },
+      {
+        question: "18 marbles are divided into 6 jars equally. How many marbles in each jar?",
+        options: ["3", "2", "4", "5"],
+        answer: "3"
+      },
+      {
+        question: "20 stickers are given equally to 4 children. How many stickers does each child get?",
+        options: ["5", "6", "4", "7"],
+        answer: "5"
+      },
+      {
+        question: "There are 14 pens shared between 2 people. How many pens does each person get?",
+        options: ["7", "6", "8", "5"],
+        answer: "7"
+      },
+      {
+        question: "16 apples are put into 4 baskets equally. How many apples in each basket?",
+        options: ["4", "5", "3", "6"],
+        answer: "4"
+      }
+    ]
+  };
+
+  classButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedClass = btn.dataset.class;
+      levelButtonsWrapper.style.display = "flex";
+      questionsSection.style.display = "none";
+      scoreDisplay.textContent = "";
+    });
+  });
+
+  levelButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedLevel = btn.dataset.level;
+      const key = `${selectedClass}_${selectedLevel}`;
+      const questions = allQuestions[key] || [];
+
+      currentAnswers = questions.map(q => q.answer); // Save correct answers
+
+      questionList.innerHTML = "";
+
+      if (questions.length === 0) {
+        questionList.innerHTML = "<li>No questions available.</li>";
+      } else {
+        questions.forEach((q, index) => {
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <strong>${q.question}</strong>
+            <div class="options">
+              ${q.options.map((opt, i) => `
+                <label>
+                  <input type="radio" name="q${index}" value="${opt}" />
+                  ${opt}
+                </label>
+              `).join("")}
+            </div>
+          `;
+          questionList.appendChild(li);
+        });
+      }
+
+      questionsSection.style.display = "block";
+      scoreDisplay.textContent = "";
+    });
+  });
+
+  submitBtn.addEventListener("click", () => {
+    let score = 0;
+    currentAnswers.forEach((correct, index) => {
+      const selected = document.querySelector(`input[name="q${index}"]:checked`);
+      if (selected && selected.value === correct) {
+        score++;
+      }
+    });
+    scoreDisplay.textContent = `You scored ${score} out of ${currentAnswers.length}!`;
+  });
+</script>
   </body>
 </html>

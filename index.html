@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <div id="popupForm" class="popup-form-container">
+    <!-- <div id="popupForm" class="popup-form-container">
       <div class="popup-form">
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h2>Get Started with EEC</h2>
@@ -23,7 +23,7 @@
           <button type="submit">Submit</button>
         </form>
       </div>
-    </div>
+    </div> -->
 
     <div class="topbar">
       <!-- Left scrolling text -->
@@ -150,8 +150,8 @@
 
       <div class="form-wrapper">
         <form id="bookingForm" class="form-card">
-          <h2>Book your Free Session</h2>
-          <p><strong>Enter Your Details</strong></p>
+          <h2>Sign up</h2>
+          <!-- <p><strong>Enter Your Details</strong></p> -->
       
           <input type="text" name="childName" placeholder="Enter Name of your Child" required />
           <input type="tel" name="mobileNumber" placeholder="Enter your Mobile Number" required />
@@ -200,10 +200,20 @@
           </select>
       
           <!-- Password Field -->
-          <input type="password" name="password" placeholder="Enter Password" required />
+          <input type="password" name="password" placeholder="Password" required />
+
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" required />
       
           <button type="submit">Submit</button>
-        </form>
+                  
+      <p style="text-align: center; margin-top: 10px;">
+        Already have an account?
+        <a href="login.html" style="color: #007bff; text-decoration: none;">Login here</a>
+      </p>
+        
+        </form> 
+
+  
       </div>
       
       
@@ -242,7 +252,7 @@
         });
       </script> -->
 
-      <script>
+      <!-- <script>
         const form = document.getElementById('bookingForm');
     
         form.addEventListener('submit', async (e) => {
@@ -272,8 +282,36 @@
             alert('An error occurred.');
           }
         });
-      </script>
+      </script> -->
       
+      <script>
+        document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const data = Object.fromEntries(formData.entries());
+try{
+  const response = await fetch("http://localhost:3000/api/book-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  });
+
+  const result = await response.json();
+  // alert(result.message);
+  if (response.ok) {
+        alert(result.message);
+        e.target.reset(); // clear form after success
+      } else {
+        alert(`Error: ${result.message}`);
+      }
+    } catch (error) {
+      console.error("Request failed:", error);
+      alert("Something went wrong!");
+    }
+});
+
+      </script>
 
       <!-- SVG Curve -->
       <div class="curve">
@@ -689,7 +727,7 @@
 
 
      <!-- JavaScript -->
-     <script>
+     <!-- <script>
       function closePopup() {
         document.getElementById("popupForm").style.display = "none";
       }
@@ -698,7 +736,7 @@
       window.onload = function () {
         document.getElementById("popupForm").style.display = "flex";
       };
-    </script>
+    </script> -->
 
 
 <script>
