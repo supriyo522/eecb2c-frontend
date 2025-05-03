@@ -271,7 +271,7 @@
         };
 
         try {
-          const response = await fetch(`https://eecb2c-backend.onrender.com/api/profile/update/${encodeURIComponent(email)}`, {
+          const response = await fetch(`http://localhost:3000/api/profile/update/${encodeURIComponent(email)}`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
